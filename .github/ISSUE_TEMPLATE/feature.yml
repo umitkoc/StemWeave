@@ -1,0 +1,42 @@
+name: Özellik önerisi
+description: Kullanıcı problemi ve kabul kriteriyle yeni özellik önerin.
+title: "[Feature]: "
+labels:
+  - "type:feature"
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Kullanıcı problemi
+      description: Özellikten önce çözülmesi gereken problemi anlatın.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Önerilen çözüm
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Kabul kriterleri
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: dropdown
+    id: milestone
+    attributes:
+      label: Önerilen dönem
+      options:
+        - MVP
+        - Public alpha sonrası
+        - Fikrim yok
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatifler ve kapsam dışı noktalar

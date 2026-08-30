@@ -1,0 +1,59 @@
+name: Hata bildirimi
+description: Tekrar üretilebilir bir ürün veya geliştirme ortamı hatası bildirin.
+title: "[Bug]: "
+labels:
+  - "type:bug"
+body:
+  - type: markdown
+    attributes:
+      value: "Güvenlik açığını herkese açık issue olarak yazmayın; SECURITY.md yolunu kullanın."
+  - type: textarea
+    id: description
+    attributes:
+      label: Hata
+      description: Ne oldu ve ne olmasını bekliyordunuz?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Tekrar üretme adımları
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Sürüm veya commit
+      placeholder: 0.0.0 veya commit SHA
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Alan
+      options:
+        - Center
+        - Piano
+        - API
+        - Audio Worker
+        - Database
+        - Dokümantasyon
+        - Bilinmiyor
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Ortam
+      description: İşletim sistemi, cihaz, Node/pnpm ve gerekli diğer bilgiler.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log veya ekran görüntüsü
+      description: Gizli bilgi, token veya özel ses dosyası eklemeyin.

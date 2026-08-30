@@ -1,0 +1,7 @@
+# SSH remote bağlandıktan sonra gerçek GitHub kullanıcı veya takım adları etkinleştirilecektir.
+# Örnek:
+# *                              @umitkoc/maintainers
+# /packages/contracts/           @umitkoc/core-maintainers
+# /services/audio-worker/        @umitkoc/audio-maintainers
+
+*                                @umitkoc

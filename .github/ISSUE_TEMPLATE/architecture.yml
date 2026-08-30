@@ -1,0 +1,43 @@
+name: Mimari karar önerisi
+description: Contract, veri modeli, güvenlik veya modül sınırı değişikliği önerin.
+title: "[Architecture]: "
+labels:
+  - "needs-decision"
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Bağlam
+      description: Hangi mevcut karar veya sınır yetersiz kalıyor?
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Önerilen karar
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Değerlendirilen alternatifler
+    validations:
+      required: true
+  - type: textarea
+    id: consequences
+    attributes:
+      label: Sonuçlar ve migration etkisi
+    validations:
+      required: true
+  - type: checkboxes
+    id: affected
+    attributes:
+      label: Etkilenen alanlar
+      options:
+        - label: Contract/API
+        - label: Database
+        - label: Center
+        - label: Instrument app
+        - label: Audio pipeline
+        - label: Security/privacy
+        - label: Roadmap

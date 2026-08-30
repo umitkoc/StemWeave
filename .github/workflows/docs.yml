@@ -1,0 +1,27 @@
+name: Documentation
+
+on:
+  pull_request:
+    paths:
+      - "README.md"
+      - "docs/**"
+      - "scripts/check-markdown.mjs"
+      - ".github/workflows/docs.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.23.1
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm docs:check
+      - run: pnpm exec prettier --check README.md docs scripts/check-markdown.mjs
