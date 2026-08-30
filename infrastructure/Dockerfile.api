@@ -1,0 +1,32 @@
+# Bu dosya yerel geliştirme veya basit dağıtım için taslak olarak eklenmiştir.
+FROM node:22-alpine AS base
+
+# Corepack'i aktif et
+RUN corepack enable
+
+FROM base AS builder
+WORKDIR /app
+# pnpm lock ve monorepo paketlerini kopyala
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+# Uygulama ve paketlerin skeleton'unu oluşturmak için turbo kullanabiliriz ama basit MVP için:
+COPY . .
+# API servisi build
+RUN pnpm install --frozen-lockfile
+RUN pnpm --filter @stemweave/api... build
+
+FROM base AS runner
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/packages ./packages
+COPY --from=builder /app/services/api ./services/api
+
+# Uygulamanın çalışacağı port
+EXPOSE 3000
+
+ENV NODE_ENV=production
+# TODO: Readiness probe db olmadan hata verip, db varken geçecek şekilde healthcheck tanımlanabilir.
+HEALTHCHECK --interval=10s --timeout=3s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
+
+WORKDIR /app/services/api
+CMD ["node", "dist/index.js"]

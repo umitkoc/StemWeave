@@ -1,0 +1,28 @@
+# Bu dosya yerel geliştirme veya basit dağıtım için taslak olarak eklenmiştir.
+FROM node:22-alpine AS base
+
+# FFmpeg bağımlılığı worker için gereklidir (Render job'ları için)
+RUN apk add --no-cache ffmpeg
+
+# Corepack'i aktif et
+RUN corepack enable
+
+FROM base AS builder
+WORKDIR /app
+# pnpm lock ve monorepo paketlerini kopyala
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY . .
+# Worker servisi build
+RUN pnpm install --frozen-lockfile
+RUN pnpm --filter @stemweave/audio-worker... build
+
+FROM base AS runner
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/packages ./packages
+COPY --from=builder /app/services/audio-worker ./services/audio-worker
+
+ENV NODE_ENV=production
+
+WORKDIR /app/services/audio-worker
+CMD ["node", "dist/index.js"]

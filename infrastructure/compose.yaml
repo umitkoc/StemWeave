@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: stemweave-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: stemweave
+    ports:
+      - "5432:5432"
+    volumes:
+      - stemweave-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d stemweave"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  stemweave-db-data:
+  stemweave-local-assets: # Bu volume yerel geliştirme ortamında audio dosyaları için kullanılacak

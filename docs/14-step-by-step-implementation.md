@@ -49,16 +49,16 @@ Monorepo ve workflow dosyaları yerelde hazırlandı. SSH adresi alındıktan so
 
 ### Yapılacaklar
 
-- [ ] `compose.yaml` oluştur.
-- [ ] PostgreSQL healthcheck ekle.
-- [ ] Local asset volume oluştur.
-- [ ] `.env.example` oluştur.
-- [ ] API ve worker Dockerfile taslaklarını ekle.
-- [ ] Drizzle bağlantısı ve migration komutları ekle.
+- [x] `compose.yaml` oluştur.
+- [x] PostgreSQL healthcheck ekle.
+- [x] Local asset volume oluştur.
+- [x] `.env.example` oluştur.
+- [x] API ve worker Dockerfile taslaklarını ekle.
+- [x] Drizzle bağlantısı ve migration komutları ekle.
 
 ### Test
 
-- [ ] Boş volume’da migration çalışır.
+- [x] Boş volume’da migration çalışır.
 - [ ] İkinci migration çalıştırması veri bozmaz.
 - [ ] API readiness PostgreSQL yokken başarısız, varken başarılıdır.
 
