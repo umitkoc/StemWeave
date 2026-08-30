@@ -70,18 +70,18 @@ Yeni geliştirici README adımlarıyla 15 dakikada altyapıyı açabilir.
 
 ### Yapılacaklar
 
-- [ ] `ProjectManifest` Zod schema oluştur.
-- [ ] `ContributionManifest` schema oluştur.
-- [ ] `InstrumentDefinition` schema oluştur.
-- [ ] `TempoChangeRequest` schema oluştur.
-- [ ] Contract version ve hata kodlarını tanımla.
-- [ ] Örnek valid/invalid fixture’lar ekle.
+- [x] `ProjectManifest` Zod schema oluştur.
+- [x] `ContributionManifest` schema oluştur.
+- [x] `InstrumentDefinition` schema oluştur.
+- [x] `TempoChangeRequest` schema oluştur.
+- [x] Contract version ve hata kodlarını tanımla.
+- [x] Örnek valid/invalid fixture’lar ekle.
 
 ### Test
 
-- [ ] Center ve piano aynı fixture’ı parse eder.
-- [ ] BPM, ölçü ve checksum sınır testleri geçer.
-- [ ] Eski/gelecek schema version kontrollü hata üretir.
+- [x] Center ve piano aynı fixture’ı parse eder.
+- [x] BPM, ölçü ve checksum sınır testleri geçer.
+- [x] Eski/gelecek schema version kontrollü hata üretir.
 
 ### Çıkış kriteri
 
