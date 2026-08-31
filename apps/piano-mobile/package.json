@@ -2,13 +2,31 @@
   "name": "@stemweave/piano-mobile",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
+  "main": "expo-router/entry",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json --noEmit",
     "clean": "node ../../scripts/clean-package.mjs",
-    "dev": "tsc -p tsconfig.json --watch",
-    "lint": "eslint src --max-warnings=0",
+    "dev": "expo start",
+    "ios": "expo run:ios",
+    "android": "expo run:android",
+    "lint": "eslint app src --max-warnings=0",
     "test": "vitest run --passWithNoTests",
     "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@stemweave/contracts": "workspace:*",
+    "@stemweave/instrument-catalog": "workspace:*",
+    "expo": "53.0.20",
+    "expo-av": "15.1.6",
+    "expo-router": "5.1.11",
+    "expo-status-bar": "2.2.3",
+    "react": "18.3.1",
+    "react-native": "0.76.9"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.23",
+    "@types/react-native": "0.73.0",
+    "typescript": "5.8.3",
+    "vitest": "^2.1.8"
   }
 }

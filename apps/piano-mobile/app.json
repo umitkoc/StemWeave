@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "StemWeave Piano",
+    "slug": "stemweave-piano",
+    "version": "0.1.0",
+    "scheme": "stemweave-piano",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0a0a0a",
+    "splash": {
+      "backgroundColor": "#0a0a0a"
+    },
+    "ios": {
+      "bundleIdentifier": "com.stemweave.piano",
+      "infoPlist": {
+        "UIBackgroundModes": ["audio"],
+        "NSMicrophoneUsageDescription": "StemWeave uses the microphone for audio playback routing."
+      }
+    },
+    "android": {
+      "package": "com.stemweave.piano",
+      "permissions": ["android.permission.MODIFY_AUDIO_SETTINGS"]
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Allow StemWeave Piano to access the microphone for audio routing."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
