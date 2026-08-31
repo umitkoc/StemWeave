@@ -22,6 +22,8 @@ Bu klasördeki belgeler, kod yazılmadan önce MVP sınırını ve teknik sözle
 16. [`16-decisions-risks-open-questions.md`](16-decisions-risks-open-questions.md) — Kararlar, riskler ve açık sorular
 17. [`17-glossary.md`](17-glossary.md) — Ortak terimler
 
+Tamamlanan geliştirme görevleri ve doğrulama sonuçları [`completed_tasks/`](completed_tasks/) altında tutulur.
+
 ## Belge durumu etiketleri
 
 - `Öneri`: Henüz kesinleşmemiştir.

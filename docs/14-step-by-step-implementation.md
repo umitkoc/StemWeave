@@ -113,27 +113,31 @@ API üzerinden proje oluşturulup piyano rolü atanabilir.
 
 ### Yapılacaklar
 
-- [ ] Tauri + React uygulaması oluştur.
-- [ ] Consolas ve pixel design token’larını ekle.
-- [ ] Enstrüman katalog renk/ikon paketini bağla.
-- [ ] Proje oluşturma ekranı.
-- [ ] BPM/ölçü kilit göstergesi.
-- [ ] Siyah-beyaz timeline ızgarası.
-- [ ] Üst cetvel ve marker.
-- [ ] Horizontal/vertical scroll.
-- [ ] Ctrl + fare pan.
-- [ ] F6 kanal paneli, F7 katkılar, F9 odak modu.
-- [ ] Fullscreen API adaptörü ve Escape davranışı.
+- [x] Tauri + React uygulaması oluştur.
+- [x] Consolas ve pixel design token’larını ekle.
+- [x] Enstrüman katalog renk/ikon paketini bağla.
+- [x] Proje oluşturma ekranı.
+- [x] BPM/ölçü kilit göstergesi.
+- [x] Siyah-beyaz timeline ızgarası.
+- [x] Üst cetvel ve marker.
+- [x] Horizontal/vertical scroll.
+- [x] Ctrl + fare pan.
+- [x] F6 kanal paneli, F7 katkılar, F9 odak modu.
+- [x] Fullscreen API adaptörü ve Escape davranışı.
 
 ### Test
 
-- [ ] Keyboard shortcut component testleri.
-- [ ] 50 track/500 clip sentetik performans testi.
+- [x] Keyboard shortcut component testleri.
+- [x] 50 track/500 clip sentetik performans testi.
 - [ ] Windows/macOS görsel smoke test.
 
 ### Çıkış kriteri
 
 Persist edilmemiş demo blokları sürüklenebilir ve timeline akıcıdır.
+
+### Yerel durum — 31 Ağustos 2026
+
+Web kabuğu ve etkileşimleri tamamlandı. Tarayıcı görsel smoke testi geçti. Native Tauri smoke testi için geliştirme makinesine Rust toolchain kurulması ve Windows doğrulamasının CI/Windows runner üzerinde çalıştırılması bekleniyor.
 
 ## Adım 6 — Mobil piano audio spike
 

@@ -180,4 +180,15 @@ describe("StemWeave API", () => {
     expect(responses[10]?.statusCode).toBe(429);
     expect(responses[10]?.json().error.code).toBe("RATE_LIMIT_EXCEEDED");
   });
+
+  it("Center geliştirme origin'ine CORS erişimi verir", async () => {
+    const response = await app.inject({
+      headers: { origin: "http://127.0.0.1:1420" },
+      method: "GET",
+      url: "/health/live",
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.headers["access-control-allow-origin"]).toBe("http://127.0.0.1:1420");
+  });
 });

@@ -1,3 +1,4 @@
+import cors from "@fastify/cors";
 import rateLimit from "@fastify/rate-limit";
 import Fastify, { type FastifyInstance } from "fastify";
 import { z } from "zod";
@@ -13,6 +14,14 @@ export type ApiDependencies = {
   readonly repository: ProjectRepository;
 };
 
+const centerOrigins = new Set([
+  "http://127.0.0.1:1420",
+  "http://localhost:1420",
+  "http://tauri.localhost",
+  "https://tauri.localhost",
+  "tauri://localhost",
+]);
+
 function isRateLimitError(error: unknown): error is { statusCode: 429 } {
   if (typeof error !== "object" || error === null || !("statusCode" in error)) return false;
   return error.statusCode === 429;
@@ -21,6 +30,15 @@ function isRateLimitError(error: unknown): error is { statusCode: 429 } {
 export async function buildApi(dependencies: ApiDependencies): Promise<FastifyInstance> {
   const app = Fastify({ logger: false });
   const projectService = new ProjectService(dependencies.repository);
+
+  await app.register(cors, {
+    allowedHeaders: ["content-type", "x-dev-display-name", "x-dev-user-email", "x-dev-user-id"],
+    credentials: false,
+    methods: ["GET", "POST", "PUT"],
+    origin: (origin, callback) => {
+      callback(null, origin === undefined || centerOrigins.has(origin));
+    },
+  });
 
   await app.register(rateLimit, {
     global: false,
