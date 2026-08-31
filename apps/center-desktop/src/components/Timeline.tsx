@@ -1,5 +1,6 @@
 import type { Measure } from "@stemweave/contracts";
 import { instrumentCatalog } from "@stemweave/instrument-catalog";
+import type { InstrumentDefinition } from "@stemweave/instrument-catalog";
 import type {
   CSSProperties,
   DragEvent,
@@ -199,7 +200,7 @@ export function Timeline({
           ))}
         </div>
 
-        {instrumentCatalog.flatMap((instrument) => {
+        {instrumentCatalog.flatMap((instrument: InstrumentDefinition) => {
           const trackClips = clipsByInstrument.get(instrument.id) ?? [];
           const label = showChannels ? (
             <div className="track-label" key={`${instrument.id}-label`}>

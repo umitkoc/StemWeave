@@ -1,5 +1,6 @@
 import type { Measure } from "@stemweave/contracts";
 import { instrumentCatalog } from "@stemweave/instrument-catalog";
+import type { InstrumentDefinition } from "@stemweave/instrument-catalog";
 import { pixelCssVariables } from "@stemweave/pixel-ui";
 import type { CSSProperties } from "react";
 import { useMemo, useState } from "react";
@@ -198,7 +199,7 @@ export function App({
             <div className="contribution-list">
               {demoContributions.map((contribution) => {
                 const instrument = instrumentCatalog.find(
-                  (item) => item.id === contribution.instrumentId,
+                  (item: InstrumentDefinition) => item.id === contribution.instrumentId,
                 );
                 if (instrument === undefined) return null;
                 return (
