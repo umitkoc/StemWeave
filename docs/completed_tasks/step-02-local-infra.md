@@ -3,6 +3,7 @@
 **Durum**: Tamamlandı
 
 ## Yapılanlar
+
 - Proje kökünde örnek ortam değişkenleri dosyası (`.env.example`) oluşturuldu.
 - `infrastructure/compose.yaml` dosyası eklendi; içerisinde PostgreSQL (pg_isready healthcheck ile) ve yerel ses dosyaları için bir Docker volume (stemweave-local-assets) tanımlandı.
 - API (`Dockerfile.api`) ve audio worker (`Dockerfile.worker`) servisleri için Dockerfile taslakları oluşturuldu.

@@ -2,7 +2,7 @@
 
 StemWeave, farklı enstrüman uygulamalarından gelen kayıtların bir şef tarafından ortak bir zaman çizelgesinde düzenlendiği, sürümlendiği, incelendiği ve yayınlandığı açık kaynak bir müzik iş birliği platformudur.
 
-> Durum: Adım 1 monorepo iskeleti çalışıyor. Henüz kullanıcıya dönük üretim özelliği yoktur.
+> Durum: Adım 4 backend dilimi çalışıyor. Henüz kullanıcıya dönük masaüstü/mobil arayüz yoktur.
 
 ## İlk MVP hedefi
 
@@ -32,6 +32,14 @@ pnpm build
 ```
 
 `pnpm check`; biçim, Markdown bağlantıları, lint, TypeScript ve testleri tek komutta denetler.
+
+PostgreSQL ve API entegrasyon testi:
+
+```bash
+docker compose -f infrastructure/compose.yaml up -d postgres
+pnpm --filter @stemweave/db db:migrate
+pnpm test:integration
+```
 
 ## Monorepo yerleşimi
 

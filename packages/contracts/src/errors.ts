@@ -7,4 +7,4 @@ export const ErrorCodes = {
   MISSING_REQUIRED_FIELD: "MISSING_REQUIRED_FIELD",
 } as const;
 
-export type ErrorCode = typeof ErrorCodes[keyof typeof ErrorCodes];
+export type ErrorCode = (typeof ErrorCodes)[keyof typeof ErrorCodes];

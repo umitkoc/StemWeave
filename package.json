@@ -18,6 +18,7 @@
     "format:check": "prettier --check .",
     "lint": "turbo run lint",
     "test": "turbo run test",
+    "test:integration": "pnpm --filter @stemweave/api test:integration",
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {

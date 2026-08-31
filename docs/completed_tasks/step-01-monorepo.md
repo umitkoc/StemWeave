@@ -3,6 +3,7 @@
 **Durum**: Tamamlandı
 
 ## Yapılanlar
+
 - pnpm workspace ve Turborepo altyapısı oluşturuldu.
 - `apps`, `services`, `packages` ve `infrastructure` klasörleri açıldı.
 - TypeScript, ESLint ve Prettier ayarları tamamlandı.

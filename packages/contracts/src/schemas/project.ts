@@ -3,7 +3,7 @@ import { CONTRACT_VERSION } from "../version.js";
 import { ErrorCodes } from "../errors.js";
 
 export const MeasureSchema = z.enum(["4/4", "3/4", "6/8", "2/4", "5/4", "7/8"], {
-  errorMap: () => ({ message: ErrorCodes.INVALID_MEASURE }),
+  message: ErrorCodes.INVALID_MEASURE,
 });
 
 export const ProjectManifestSchema = z.object({
