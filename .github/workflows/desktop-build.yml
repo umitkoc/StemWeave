@@ -23,4 +23,4 @@ jobs:
           node-version: 22.23.1
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @stemweave/center-desktop build
+      - run: pnpm turbo build --filter=@stemweave/center-desktop
