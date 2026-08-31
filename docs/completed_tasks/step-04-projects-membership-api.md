@@ -14,6 +14,7 @@
 - OWNER, müzisyen ve viewer erişimleri proje bazlı RBAC policy ile ayrıldı. Viewer taslak manifesti göremez, müzisyen üyeleri yönetemez.
 - Son OWNER rolünün kaldırılması transaction içinde engellendi; birden fazla OWNER varsa canonical project owner aktarımı desteklendi.
 - Her mutation için audit event üretildi.
+- Yetkilendirme kullanan proje endpoint'lerine route bazlı rate limit eklendi: okuma için dakikada 120, mutation'lar için 20, davet kabulü için 10 istek. Limit aşımı standart `429 RATE_LIMIT_EXCEEDED` cevabı üretir.
 
 ## Endpoint özeti
 
@@ -36,10 +37,14 @@ Bu header'lar production kimlik çözümü değildir ve production'da etkinleşt
 ## Doğrulama
 
 - Repo kalite zinciri: 13 workspace üzerinde 40 görev başarılı.
-- Unit/API: 6 test.
+- Unit/API: 7 test; rate limit ve `429` cevabı dahil.
 - PostgreSQL integration: proje transaction'ı, readiness, son OWNER ve gerçek piyano davet akışı.
 - Migration boş veritabanında uygulandı ve ikinci çalıştırmada değişiklik yapmadan başarılı oldu.
 - Tüm workspace build görevleri başarılı.
+
+## Ölçekleme notu
+
+MVP'de rate-limit sayaçları tek API sürecinin belleğinde tutulur. Birden fazla API instance'ına geçildiğinde bu parça ortak Redis tabanlı store ile değiştirilecek ve reverse proxy güven ayarları deployment ortamına göre açıkça tanımlanacaktır.
 
 ## Sonraki adım
 

@@ -163,4 +163,21 @@ describe("StemWeave API", () => {
     expect(response.statusCode).toBe(409);
     expect(response.json().error.code).toBe("LAST_OWNER_REQUIRED");
   });
+
+  it("rate limits repeated invitation acceptance attempts", async () => {
+    const responses = [];
+    for (let attempt = 0; attempt < 11; attempt += 1) {
+      responses.push(
+        await app.inject({
+          headers: musician,
+          method: "POST",
+          url: "/v1/invitations/not-a-real-invitation-token/accept",
+        }),
+      );
+    }
+
+    expect(responses.slice(0, 10).every((response) => response.statusCode === 404)).toBe(true);
+    expect(responses[10]?.statusCode).toBe(429);
+    expect(responses[10]?.json().error.code).toBe("RATE_LIMIT_EXCEEDED");
+  });
 });

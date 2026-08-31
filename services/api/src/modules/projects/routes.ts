@@ -30,6 +30,10 @@ const ReplaceRolesBodySchema = z.object({
   roles: z.array(ProjectRoleSchema).min(1).max(6),
 });
 
+const mutationRateLimit = { max: 20, timeWindow: "1 minute" } as const;
+const readRateLimit = { max: 120, timeWindow: "1 minute" } as const;
+const invitationAcceptanceRateLimit = { max: 10, timeWindow: "1 minute" } as const;
+
 export async function registerProjectRoutes(
   app: FastifyInstance,
   service: ProjectService,
@@ -37,7 +41,7 @@ export async function registerProjectRoutes(
 ): Promise<void> {
   const principal = (request: FastifyRequest) => auth.authenticate(request);
 
-  app.post("/projects", async (request, reply) => {
+  app.post("/projects", { config: { rateLimit: mutationRateLimit } }, async (request, reply) => {
     const identity = await principal(request);
     const body = CreateProjectBodySchema.parse(request.body);
     const project = await service.createProject(identity, {
@@ -52,30 +56,46 @@ export async function registerProjectRoutes(
     return reply.code(201).send(project);
   });
 
-  app.get("/projects/:projectId/manifest", async (request) => {
-    const identity = await principal(request);
-    const { projectId } = ProjectIdParamsSchema.parse(request.params);
-    return service.getManifest(identity, projectId);
-  });
+  app.get(
+    "/projects/:projectId/manifest",
+    { config: { rateLimit: readRateLimit } },
+    async (request) => {
+      const identity = await principal(request);
+      const { projectId } = ProjectIdParamsSchema.parse(request.params);
+      return service.getManifest(identity, projectId);
+    },
+  );
 
-  app.post("/projects/:projectId/invitations", async (request, reply) => {
-    const identity = await principal(request);
-    const { projectId } = ProjectIdParamsSchema.parse(request.params);
-    const body = CreateInvitationBodySchema.parse(request.body);
-    const invitation = await service.createInvitation(identity, projectId, body);
-    return reply.code(201).send(invitation);
-  });
+  app.post(
+    "/projects/:projectId/invitations",
+    { config: { rateLimit: mutationRateLimit } },
+    async (request, reply) => {
+      const identity = await principal(request);
+      const { projectId } = ProjectIdParamsSchema.parse(request.params);
+      const body = CreateInvitationBodySchema.parse(request.body);
+      const invitation = await service.createInvitation(identity, projectId, body);
+      return reply.code(201).send(invitation);
+    },
+  );
 
-  app.post("/invitations/:token/accept", async (request) => {
-    const identity = await principal(request);
-    const { token } = InvitationTokenParamsSchema.parse(request.params);
-    return service.acceptInvitation(identity, token);
-  });
+  app.post(
+    "/invitations/:token/accept",
+    { config: { rateLimit: invitationAcceptanceRateLimit } },
+    async (request) => {
+      const identity = await principal(request);
+      const { token } = InvitationTokenParamsSchema.parse(request.params);
+      return service.acceptInvitation(identity, token);
+    },
+  );
 
-  app.put("/projects/:projectId/members/:memberId/roles", async (request) => {
-    const identity = await principal(request);
-    const { memberId, projectId } = MemberParamsSchema.parse(request.params);
-    const { roles } = ReplaceRolesBodySchema.parse(request.body);
-    return service.replaceMemberRoles(identity, projectId, memberId, roles);
-  });
+  app.put(
+    "/projects/:projectId/members/:memberId/roles",
+    { config: { rateLimit: mutationRateLimit } },
+    async (request) => {
+      const identity = await principal(request);
+      const { memberId, projectId } = MemberParamsSchema.parse(request.params);
+      const { roles } = ReplaceRolesBodySchema.parse(request.body);
+      return service.replaceMemberRoles(identity, projectId, memberId, roles);
+    },
+  );
 }

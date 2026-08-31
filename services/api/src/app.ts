@@ -1,3 +1,4 @@
+import rateLimit from "@fastify/rate-limit";
 import Fastify, { type FastifyInstance } from "fastify";
 import { z } from "zod";
 
@@ -12,9 +13,21 @@ export type ApiDependencies = {
   readonly repository: ProjectRepository;
 };
 
+function isRateLimitError(error: unknown): error is { statusCode: 429 } {
+  if (typeof error !== "object" || error === null || !("statusCode" in error)) return false;
+  return error.statusCode === 429;
+}
+
 export async function buildApi(dependencies: ApiDependencies): Promise<FastifyInstance> {
   const app = Fastify({ logger: false });
   const projectService = new ProjectService(dependencies.repository);
+
+  await app.register(rateLimit, {
+    global: false,
+    ipv6Subnet: 64,
+    max: 120,
+    timeWindow: "1 minute",
+  });
 
   app.setErrorHandler((error, request, reply) => {
     if (error instanceof ApiError) {
@@ -30,6 +43,12 @@ export async function buildApi(dependencies: ApiDependencies): Promise<FastifyIn
           issues: error.issues,
           message: "İstek doğrulanamadı.",
         },
+        requestId: request.id,
+      });
+    }
+    if (isRateLimitError(error)) {
+      return reply.code(429).send({
+        error: { code: "RATE_LIMIT_EXCEEDED", message: "Çok fazla istek gönderildi." },
         requestId: request.id,
       });
     }
