@@ -3,6 +3,7 @@
 **Durum**: Tamamlandı
 
 ## Yapılanlar
+
 - `@stemweave/contracts` paketine `zod` eklendi.
 - `version.ts` (versiyon sabitleri) ve `errors.ts` (hata kodları) eklendi.
 - Zod şemaları (`schemas/project.ts`, `schemas/contribution.ts`, `schemas/instrument.ts`, `schemas/tempo.ts`) oluşturuldu.

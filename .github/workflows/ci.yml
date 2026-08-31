@@ -39,3 +39,53 @@ jobs:
 
       - name: Build workspaces
         run: pnpm build
+
+  api-integration:
+    name: API integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: stemweave
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d stemweave"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/stemweave
+      NODE_ENV: test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22.23.1
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build workspaces
+        run: pnpm build
+
+      - name: Apply migrations twice
+        run: |
+          pnpm --filter @stemweave/db db:migrate
+          pnpm --filter @stemweave/db db:migrate
+
+      - name: Run API integration tests
+        run: pnpm test:integration

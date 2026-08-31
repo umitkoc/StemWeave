@@ -59,8 +59,8 @@ Monorepo ve workflow dosyaları yerelde hazırlandı. SSH adresi alındıktan so
 ### Test
 
 - [x] Boş volume’da migration çalışır.
-- [ ] İkinci migration çalıştırması veri bozmaz.
-- [ ] API readiness PostgreSQL yokken başarısız, varken başarılıdır.
+- [x] İkinci migration çalıştırması veri bozmaz.
+- [x] API readiness PostgreSQL yokken başarısız, varken başarılıdır.
 
 ### Çıkış kriteri
 
@@ -91,19 +91,19 @@ Contract paketi API, Center ve mobile tarafından import edilebilir.
 
 ### Yapılacaklar
 
-- [ ] Development auth adapter ekle.
-- [ ] User/project/membership tablolarını migrate et.
-- [ ] Proje oluşturma endpoint’i.
-- [ ] ProjectManifest endpoint’i.
-- [ ] Davet ve rol endpoint’leri.
-- [ ] RBAC policy testleri.
-- [ ] Audit event üretimi.
+- [x] Development auth adapter ekle.
+- [x] User/project/membership tablolarını migrate et.
+- [x] Proje oluşturma endpoint’i.
+- [x] ProjectManifest endpoint’i.
+- [x] Davet ve rol endpoint’leri.
+- [x] RBAC policy testleri.
+- [x] Audit event üretimi.
 
 ### Test
 
-- [ ] Proje + ilk rule version transaction testi.
-- [ ] Şef/müzisyen/viewer yetki matrisi integration testi.
-- [ ] Son owner’ın ayrılamaması testi.
+- [x] Proje + ilk rule version transaction testi.
+- [x] Şef/müzisyen/viewer yetki matrisi integration testi.
+- [x] Son owner’ın ayrılamaması testi.
 
 ### Çıkış kriteri
 
