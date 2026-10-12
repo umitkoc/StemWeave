@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@fastify/cors": "11.3.0",
-    "@fastify/rate-limit": "11.2.0",
+    "@fastify/rate-limit": "11.2.1",
     "@stemweave/contracts": "workspace:*",
     "@stemweave/db": "workspace:*",
     "drizzle-orm": "0.45.2",
